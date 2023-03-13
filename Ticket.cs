@@ -1,9 +1,14 @@
-class Ticket
+namespace Midterm;
+
+
+public abstract class Ticket
 {
     //Properties
     public int TicketID { get; set; }
     public string Summary { get; set; }
     public string Status { get; set; }
+
+    //maybe change to enum
     public string Priority { get; set; }
     public string Assigned { get; set; }
     public string Submitter { get; set; }
@@ -20,7 +25,7 @@ public Ticket()
         Console.WriteLine("Enter ticket status (Open, Closed): ");
         Status = Console.ReadLine();
 
-        Console.WriteLine("Enter ticket priority (High, Medium, Low): ");
+        Console.WriteLine("Enter ticket priority (High, Medium , Low): ");
         Priority = Console.ReadLine();
 
         Console.WriteLine("Enter ticket Assignee: ");
