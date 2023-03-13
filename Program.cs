@@ -64,7 +64,7 @@ do
         StreamWriter sw1 = new StreamWriter(file, append: true);
 
         string watchers = null;
-        Ticket t = new Ticket();
+        Bug_Defect t = new Bug_Defect();
         int amount = t.Watching.Count();
         for (int j = 0; j < amount; j++)
         {
