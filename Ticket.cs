@@ -51,7 +51,7 @@ public abstract class Ticket
 
     }
 
-    public virtual string readFile(string file){
+    public virtual void readFile(string file){
         if (File.Exists(file))
         {
             // read data from file
@@ -70,7 +70,7 @@ public abstract class Ticket
                     watchersStr += name;
                 }
                 //display array data
-                return($"TicketID: {arr[0]}, Summary: {arr[1]}, Status: {arr[2]}, Priority: {arr[3]}, Submitter: {arr[4]}, Assigned: {arr[5]}, Watching: {watchersStr}");
+                Console.WriteLine($"TicketID: {arr[0]}, Summary: {arr[1]}, Status: {arr[2]}, Priority: {arr[3]}, Submitter: {arr[4]}, Assigned: {arr[5]}, Watching: {watchersStr}");
                 
             }
             sr.Close();
@@ -78,9 +78,9 @@ public abstract class Ticket
         }
         else
         {
-            return("File does not exist");
+            Console.WriteLine("File does not exist");
         }
-        
+
     }
 
 }

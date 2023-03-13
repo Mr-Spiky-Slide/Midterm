@@ -35,9 +35,17 @@ do
         switch (Convert.ToInt32(Console.ReadLine))
         {
             case 1:
-
+                readBugDefect(ticketFile);
                 break;
-
+            case 2: 
+                readEnhancement(enhancementFile);
+                break;
+            case 3:
+                readTask(taskFile);
+                break;
+            default:
+                logger.Info("Please enter a number 1 - 3");
+                break;
 
         }
         // read data from file
@@ -48,7 +56,7 @@ do
             while (!sr.EndOfStream)
             {
                 string watchersStr = null;
-                string lßine = sr.ReadLine();
+                string line = sr.ReadLine();
                 // convert string to array, splitting it at the comma "," 
                 string[] arr = line.Split(',');
                 //Organize the watchers
@@ -102,3 +110,120 @@ do
         } while (addTicket);
     }
 } while (choice == "1" || choice == "2");
+
+
+static void readBugDefect(string file)
+
+{
+    if (File.Exists(file))
+    {
+        // read data from file
+        StreamReader sr = new StreamReader(file);
+        while (!sr.EndOfStream)
+        {
+            string watchersStr = null;
+            string line = sr.ReadLine();
+            // convert string to array, splitting it at the comma "," 
+            string[] arr = line.Split(',');
+            //Organize the watchers
+            string[] watchers = arr[6].Split('|');
+
+            foreach (string name in watchers)
+            {
+                watchersStr += name;
+            }
+            //display array data
+            Console.WriteLine($"TicketID: {arr[0]}, Summary: {arr[1]}, Status: {arr[2]}, Priority: {arr[3]}, Submitter: {arr[4]}, Assigned: {arr[5]}, Watching: {watchersStr}, Severity: {arr[7]}");
+
+        }
+        sr.Close();
+
+    }
+    else
+    {
+        Console.WriteLine("File does not exist");
+    }
+
+}
+
+
+static void readEnhancement(string file)
+
+{
+    if (File.Exists(file))
+    {
+        // read data from file
+        StreamReader sr = new StreamReader(file);
+        while (!sr.EndOfStream)
+        {
+            string watchersStr = null;
+            string line = sr.ReadLine();
+            // convert string to array, splitting it at the comma "," 
+            string[] arr = line.Split(',');
+            //Organize the watchers
+            string[] watchers = arr[6].Split('|');
+
+            foreach (string name in watchers)
+            {
+                watchersStr += name;
+            }
+            //display array data
+            Console.WriteLine($"TicketID: {arr[0]}, Summary: {arr[1]}, Status: {arr[2]}, Priority: {arr[3]}, Submitter: {arr[4]}, Assigned: {arr[5]}, Watching: {watchersStr}, Software: {arr[7]}, Cost: {arr[8]}, Reason: {arr[9]}, Estimate: {arr[10]}");
+
+        }
+        sr.Close();
+
+    }
+    else
+    {
+        Console.WriteLine("File does not exist");
+    }
+
+}
+
+static void readTask(string file)
+
+{
+    if (File.Exists(file))
+    {
+        // read data from file
+        StreamReader sr = new StreamReader(file);
+        while (!sr.EndOfStream)
+        {
+            string watchersStr = null;
+            string line = sr.ReadLine();
+            // convert string to array, splitting it at the comma "," 
+            string[] arr = line.Split(',');
+            //Organize the watchers
+            string[] watchers = arr[6].Split('|');
+
+            foreach (string name in watchers)
+            {
+                watchersStr += name;
+            }
+            //display array data
+            Console.WriteLine($"TicketID: {arr[0]}, Summary: {arr[1]}, Status: {arr[2]}, Priority: {arr[3]}, Submitter: {arr[4]}, Assigned: {arr[5]}, Watching: {watchersStr}, Project Name: {arr[7]}, Due Date: {arr[8]}");
+
+        }
+        sr.Close();
+
+    }
+    else
+    {
+        Console.WriteLine("File does not exist");
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
