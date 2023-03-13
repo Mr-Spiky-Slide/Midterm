@@ -1,18 +1,21 @@
 ﻿using NLog;
 using Midterm;
 
- // See https://aka.ms/new-console-template for more information
- string path = Directory.GetCurrentDirectory() + "//nlog.config";
+// See https://aka.ms/new-console-template for more information
+string path = Directory.GetCurrentDirectory() + "//nlog.config";
 
- // create instance of Logger
- var logger = LogManager.LoadConfiguration(path).GetCurrentClassLogger();
- logger.Info("Program started");
+// create instance of Logger
+var logger = LogManager.LoadConfiguration(path).GetCurrentClassLogger();
+logger.Info("Program started");
 
-string file = "tickets.csv";
+string ticketFile = "tickets.csv";
+string enhancementFile = "enhancements.csv";
+string taskFile = "task.csv";
+
 string choice;
 bool addTicket = false;
 
-StreamWriter sw0 = new StreamWriter(file);
+StreamWriter sw0 = new StreamWriter(taskFile);
 sw0.WriteLine("TicketID, Summary, Status, Priority, Assigned, Submitter, Watching");
 sw0.Close();
 
@@ -27,6 +30,16 @@ do
 
     if (choice == "1")
     {
+        string file = null;
+        Console.WriteLine("Which file would you like to read from? \n 1. Bugs/Defects \n 2. Enhancements \n 3. Tasks ");
+        switch (Convert.ToInt32(Console.ReadLine))
+        {
+            case 1:
+
+                break;
+
+
+        }
         // read data from file
         if (File.Exists(file))
         {
@@ -35,7 +48,7 @@ do
             while (!sr.EndOfStream)
             {
                 string watchersStr = null;
-                string line = sr.ReadLine();
+                string lßine = sr.ReadLine();
                 // convert string to array, splitting it at the comma "," 
                 string[] arr = line.Split(',');
                 //Organize the watchers
@@ -47,10 +60,10 @@ do
                 }
                 //display array data
                 Console.WriteLine($"TicketID: {arr[0]}, Summary: {arr[1]}, Status: {arr[2]}, Priority: {arr[3]}, Submitter: {arr[4]}, Assigned: {arr[5]}, Watching: {watchersStr}");
-                
+
             }
             sr.Close();
-            
+
         }
         else
         {
@@ -59,32 +72,33 @@ do
     }
     else if (choice == "2")
     {
-        do{
-        // create file from data
-        StreamWriter sw1 = new StreamWriter(file, append: true);
-
-        string watchers = null;
-        Bug_Defect t = new Bug_Defect();
-        int amount = t.Watching.Count();
-        for (int j = 0; j < amount; j++)
+        do
         {
-            if (j + 1 == amount)
-            {
-                watchers += t.Watching[j];
-            }
-            else
-            {
-                watchers += $"{t.Watching[j]}|";
-            }
-        }
-        sw1.WriteLine($"{t.TicketID},{t.Summary},{t.Status},{t.Priority},{t.Assigned},{t.Submitter},{watchers}");
+            // create file from data
+            StreamWriter sw1 = new StreamWriter(taskFile, append: true);
 
-        sw1.Close();
+            string watchers = null;
+            Bug_Defect t = new Bug_Defect();
+            int amount = t.Watching.Count();
+            for (int j = 0; j < amount; j++)
+            {
+                if (j + 1 == amount)
+                {
+                    watchers += t.Watching[j];
+                }
+                else
+                {
+                    watchers += $"{t.Watching[j]}|";
+                }
+            }
+            sw1.WriteLine($"{t.TicketID},{t.Summary},{t.Status},{t.Priority},{t.Assigned},{t.Submitter},{watchers}");
 
-        Console.WriteLine("Add another ticket? (Y/N)");
-        string resp = Console.ReadLine().ToUpper();
-        if (resp == "Y") { addTicket = true; }
-        else if(resp == "N") { addTicket = false; }
-        }while(addTicket);
+            sw1.Close();
+
+            Console.WriteLine("Add another ticket? (Y/N)");
+            string resp = Console.ReadLine().ToUpper();
+            if (resp == "Y") { addTicket = true; }
+            else if (resp == "N") { addTicket = false; }
+        } while (addTicket);
     }
 } while (choice == "1" || choice == "2");

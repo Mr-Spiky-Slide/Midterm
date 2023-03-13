@@ -1,12 +1,14 @@
 namespace Midterm;
 
-public class Enhancement{
+public class Enhancement
+{
     public string Software { get; set; }
     public double Cost { get; set; }
     public string Reason { get; set; }
     public TimeSpan Estimate { get; set; }
 
-    public Enhancement() : base(){
+    public Enhancement() : base()
+    {
         Console.WriteLine("What software is the issue on?");
         Software = Console.ReadLine();
 
@@ -19,6 +21,6 @@ public class Enhancement{
         Console.WriteLine("What is the time estimate (hours:minutes:seconds)");
         Estimate = TimeSpan.Parse(Console.ReadLine());
 
-    } 
+    }
 
 }

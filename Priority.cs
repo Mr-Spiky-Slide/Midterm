@@ -1,11 +1,11 @@
 using System.ComponentModel;
 
-public enum Priority 
-{ 
-    [Description("High")] 
-    HIGH, 
+public enum Priority
+{
+    [Description("High")]
+    HIGH,
     [Description("Medium")]
-    MEDIUM, 
+    MEDIUM,
     [Description("Low")]
     LOW
 }
