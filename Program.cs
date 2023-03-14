@@ -13,7 +13,6 @@ string enhancementFile = "enhancements.csv";
 string taskFile = "task.csv";
 
 string choice;
-bool addTicket = false;
 
 StreamWriter sw0 = new StreamWriter(taskFile);
 sw0.WriteLine("TicketID, Summary, Status, Priority, Assigned, Submitter, Watching");
@@ -37,7 +36,7 @@ do
             case 1:
                 readBugDefect(ticketFile);
                 break;
-            case 2: 
+            case 2:
                 readEnhancement(enhancementFile);
                 break;
             case 3:
@@ -80,29 +79,27 @@ do
     }
     else if (choice == "2")
     {
+        bool addTicket = false;
         do
         {
-            // create file from data
-            StreamWriter sw1 = new StreamWriter(taskFile, append: true);
 
-            string watchers = null;
-            Bug_Defect t = new Bug_Defect();
-            int amount = t.Watching.Count();
-            for (int j = 0; j < amount; j++)
+            Console.WriteLine("Which file would you like to read from? \n 1. Bugs/Defects \n 2. Enhancements \n 3. Tasks ");
+            string ticketChoice = Console.ReadLine();
+            switch (ticketChoice)
             {
-                if (j + 1 == amount)
-                {
-                    watchers += t.Watching[j];
-                }
-                else
-                {
-                    watchers += $"{t.Watching[j]}|";
-                }
+                case "1":
+                    writeBugDefect(ticketFile);
+                    break;
+                case "2":
+                    writeEnhancement(enhancementFile);
+                    break;
+                case "3":
+                    writeTask(taskFile);
+                    break;
+                default:
+                    logger.Info("Please enter a number 1 - 3");
+                    break;
             }
-            sw1.WriteLine($"{t.TicketID},{t.Summary},{t.Status},{t.Priority},{t.Assigned},{t.Submitter},{watchers}");
-
-            sw1.Close();
-
             Console.WriteLine("Add another ticket? (Y/N)");
             string resp = Console.ReadLine().ToUpper();
             if (resp == "Y") { addTicket = true; }
@@ -146,76 +143,156 @@ static void readBugDefect(string file)
 
 }
 
-
-static void readEnhancement(string file)
-
+static void writeBugDefect(string file)
 {
-    if (File.Exists(file))
-    {
-        // read data from file
-        StreamReader sr = new StreamReader(file);
-        while (!sr.EndOfStream)
-        {
-            string watchersStr = null;
-            string line = sr.ReadLine();
-            // convert string to array, splitting it at the comma "," 
-            string[] arr = line.Split(',');
-            //Organize the watchers
-            string[] watchers = arr[6].Split('|');
+    bool addTicket = true;
+        // create file from data
+        StreamWriter sw1 = new StreamWriter(file, append: true);
 
-            foreach (string name in watchers)
+        string watchers = null;
+        Bug_Defect t = new Bug_Defect();
+        int amount = t.Watching.Count();
+        for (int j = 0; j < amount; j++)
+        {
+            if (j + 1 == amount)
             {
-                watchersStr += name;
+                watchers += t.Watching[j];
             }
-            //display array data
-            Console.WriteLine($"TicketID: {arr[0]}, Summary: {arr[1]}, Status: {arr[2]}, Priority: {arr[3]}, Submitter: {arr[4]}, Assigned: {arr[5]}, Watching: {watchersStr}, Software: {arr[7]}, Cost: {arr[8]}, Reason: {arr[9]}, Estimate: {arr[10]}");
+            else
+            {
+                watchers += $"{t.Watching[j]}|";
+            }
+        }
+        sw1.WriteLine($"{t.TicketID},{t.Summary},{t.Status},{t.Priority},{t.Assigned},{t.Submitter},{watchers},{t.Severity}");
+
+        sw1.Close();
+
+
+    }
+
+    static void readEnhancement(string file)
+
+    {
+        if (File.Exists(file))
+        {
+            // read data from file
+            StreamReader sr = new StreamReader(file);
+            while (!sr.EndOfStream)
+            {
+                string watchersStr = null;
+                string line = sr.ReadLine();
+                // convert string to array, splitting it at the comma "," 
+                string[] arr = line.Split(',');
+                //Organize the watchers
+                string[] watchers = arr[6].Split('|');
+
+                foreach (string name in watchers)
+                {
+                    watchersStr += name;
+                }
+                //display array data
+                Console.WriteLine($"TicketID: {arr[0]}, Summary: {arr[1]}, Status: {arr[2]}, Priority: {arr[3]}, Submitter: {arr[4]}, Assigned: {arr[5]}, Watching: {watchersStr}, Software: {arr[7]}, Cost: {arr[8]}, Reason: {arr[9]}, Estimate: {arr[10]}");
+
+            }
+            sr.Close();
 
         }
-        sr.Close();
-
-    }
-    else
-    {
-        Console.WriteLine("File does not exist");
-    }
-
-}
-
-static void readTask(string file)
-
-{
-    if (File.Exists(file))
-    {
-        // read data from file
-        StreamReader sr = new StreamReader(file);
-        while (!sr.EndOfStream)
+        else
         {
-            string watchersStr = null;
-            string line = sr.ReadLine();
-            // convert string to array, splitting it at the comma "," 
-            string[] arr = line.Split(',');
-            //Organize the watchers
-            string[] watchers = arr[6].Split('|');
+            Console.WriteLine("File does not exist");
+        }
 
-            foreach (string name in watchers)
+    }
+
+    static void writeEnhancement(string file)
+    {
+        bool addTicket = true;
+
+        // create file from data
+        StreamWriter swE = new StreamWriter(file, append: true);
+
+        string watchers = null;
+        Enhancement t = new Enhancement();
+        int amount = t.Watching.Count();
+        for (int j = 0; j < amount; j++)
+        {
+            if (j + 1 == amount)
             {
-                watchersStr += name;
+                watchers += t.Watching[j];
             }
-            //display array data
-            Console.WriteLine($"TicketID: {arr[0]}, Summary: {arr[1]}, Status: {arr[2]}, Priority: {arr[3]}, Submitter: {arr[4]}, Assigned: {arr[5]}, Watching: {watchersStr}, Project Name: {arr[7]}, Due Date: {arr[8]}");
+            else
+            {
+                watchers += $"{t.Watching[j]}|";
+            }
+        }
+        swE.WriteLine($"{t.TicketID},{t.Summary},{t.Status},{t.Priority},{t.Assigned},{t.Submitter},{watchers},{t.Software},{t.Cost},{t.Reason},{t.Estimate}");
+
+        swE.Close();
+
+
+    }
+
+    static void readTask(string file)
+
+    {
+        if (File.Exists(file))
+        {
+            // read data from file
+            StreamReader sr = new StreamReader(file);
+            while (!sr.EndOfStream)
+            {
+                string watchersStr = null;
+                string line = sr.ReadLine();
+                // convert string to array, splitting it at the comma "," 
+                string[] arr = line.Split(',');
+                //Organize the watchers
+                string[] watchers = arr[6].Split('|');
+
+                foreach (string name in watchers)
+                {
+                    watchersStr += name;
+                }
+                //display array data
+                Console.WriteLine($"TicketID: {arr[0]}, Summary: {arr[1]}, Status: {arr[2]}, Priority: {arr[3]}, Submitter: {arr[4]}, Assigned: {arr[5]}, Watching: {watchersStr}, Project Name: {arr[7]}, Due Date: {arr[8]}");
+
+            }
+            sr.Close();
 
         }
-        sr.Close();
+        else
+        {
+            Console.WriteLine("File does not exist");
+        }
 
     }
-    else
+
+    static void writeTask(string file)
     {
-        Console.WriteLine("File does not exist");
+        bool addTicket = true;
+
+        // create file from data
+        StreamWriter swT = new StreamWriter(file, append: true);
+
+        string watchers = null;
+        Midterm.Task t = new Midterm.Task();
+        int amount = t.Watching.Count();
+        for (int j = 0; j < amount; j++)
+        {
+            if (j + 1 == amount)
+            {
+                watchers += t.Watching[j];
+            }
+            else
+            {
+                watchers += $"{t.Watching[j]}|";
+            }
+        }
+        swT.WriteLine($"{t.TicketID},{t.Summary},{t.Status},{t.Priority},{t.Assigned},{t.Submitter},{watchers},{t.ProjectName},{t.DueDate}");
+
+        swT.Close();
+
+
     }
-
-}
-
-
 
 
 

@@ -1,6 +1,6 @@
 namespace Midterm;
 
-public class Enhancement
+public class Enhancement : Ticket
 {
     public string Software { get; set; }
     public double Cost { get; set; }
