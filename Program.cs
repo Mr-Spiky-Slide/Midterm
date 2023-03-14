@@ -145,7 +145,6 @@ static void readBugDefect(string file)
 
 static void writeBugDefect(string file)
 {
-    bool addTicket = true;
         // create file from data
         StreamWriter sw1 = new StreamWriter(file, append: true);
 
@@ -206,7 +205,6 @@ static void writeBugDefect(string file)
 
     static void writeEnhancement(string file)
     {
-        bool addTicket = true;
 
         // create file from data
         StreamWriter swE = new StreamWriter(file, append: true);
@@ -268,7 +266,6 @@ static void writeBugDefect(string file)
 
     static void writeTask(string file)
     {
-        bool addTicket = true;
 
         // create file from data
         StreamWriter swT = new StreamWriter(file, append: true);
