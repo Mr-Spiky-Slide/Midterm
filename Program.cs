@@ -14,9 +14,6 @@ string taskFile = "task.csv";
 
 string choice;
 
-StreamWriter sw0 = new StreamWriter(taskFile);
-sw0.WriteLine("TicketID, Summary, Status, Priority, Assigned, Submitter, Watching");
-sw0.Close();
 
 do
 {
@@ -29,9 +26,8 @@ do
 
     if (choice == "1")
     {
-        string file = null;
         Console.WriteLine("Which file would you like to read from? \n 1. Bugs/Defects \n 2. Enhancements \n 3. Tasks ");
-        switch (Convert.ToInt32(Console.ReadLine))
+        switch (Convert.ToInt32(Console.ReadLine()))
         {
             case 1:
                 readBugDefect(ticketFile);
@@ -47,35 +43,8 @@ do
                 break;
 
         }
-        // read data from file
-        if (File.Exists(file))
-        {
-            // read data from file
-            StreamReader sr = new StreamReader(file);
-            while (!sr.EndOfStream)
-            {
-                string watchersStr = null;
-                string line = sr.ReadLine();
-                // convert string to array, splitting it at the comma "," 
-                string[] arr = line.Split(',');
-                //Organize the watchers
-                string[] watchers = arr[6].Split('|');
+        
 
-                foreach (string name in watchers)
-                {
-                    watchersStr += name;
-                }
-                //display array data
-                Console.WriteLine($"TicketID: {arr[0]}, Summary: {arr[1]}, Status: {arr[2]}, Priority: {arr[3]}, Submitter: {arr[4]}, Assigned: {arr[5]}, Watching: {watchersStr}");
-
-            }
-            sr.Close();
-
-        }
-        else
-        {
-            Console.WriteLine("File does not exist");
-        }
     }
     else if (choice == "2")
     {
@@ -116,6 +85,7 @@ static void readBugDefect(string file)
     {
         // read data from file
         StreamReader sr = new StreamReader(file);
+        Console.WriteLine("TicketID, Summary, Status, Priority, Assigned, Submitter, Watching, Severity");
         while (!sr.EndOfStream)
         {
             string watchersStr = null;
@@ -130,6 +100,7 @@ static void readBugDefect(string file)
                 watchersStr += name;
             }
             //display array data
+            
             Console.WriteLine($"TicketID: {arr[0]}, Summary: {arr[1]}, Status: {arr[2]}, Priority: {arr[3]}, Submitter: {arr[4]}, Assigned: {arr[5]}, Watching: {watchersStr}, Severity: {arr[7]}");
 
         }
@@ -176,6 +147,7 @@ static void writeBugDefect(string file)
         {
             // read data from file
             StreamReader sr = new StreamReader(file);
+            Console.WriteLine("TicketID, Summary, Status, Priority, Assigned, Submitter, Watching, Software, Cost, Reason, Estimate");
             while (!sr.EndOfStream)
             {
                 string watchersStr = null;
@@ -237,6 +209,7 @@ static void writeBugDefect(string file)
         {
             // read data from file
             StreamReader sr = new StreamReader(file);
+            Console.WriteLine("TicketID, Summary, Status, Priority, Assigned, Submitter, Watching, Project Name, Due Date");
             while (!sr.EndOfStream)
             {
                 string watchersStr = null;
