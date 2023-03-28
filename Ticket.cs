@@ -7,13 +7,22 @@ public abstract class Ticket
     public int TicketID { get; set; }
     public string Summary { get; set; }
     public string Status { get; set; }
-
-    //maybe change to enum
     public string Priority { get; set; }
     public string Assigned { get; set; }
     public string Submitter { get; set; }
     public List<string> Watching = new List<String>();
 
+    public Ticket(string id, string summary, string status, string priority,
+            string assigned, string submitter, List<string> watching)
+    {
+        this.TicketID = Convert.ToInt32(id);
+        this.Summary = summary;
+        this.Assigned = assigned;
+        this.Status = status;
+        this.Priority = priority;
+        this.Submitter = submitter;
+        this.Watching = watching;
+    }
     public Ticket()
     {
         Console.WriteLine("Enter a unique TicketID: ");
@@ -50,5 +59,7 @@ public abstract class Ticket
         }
 
     }
+
+
 
 }

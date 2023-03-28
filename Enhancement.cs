@@ -23,4 +23,22 @@ public class Enhancement : Ticket
 
     }
 
+    public Enhancement(string id, string summary, string status, 
+        string priority, string assigned, string submitter, 
+        List<string> watching, string software, string cost, 
+        string reason, string Estimate) : base(id, summary, status, priority, assigned, submitter, watching)
+    {
+        this.TicketID = Convert.ToInt32(id);
+        this.Summary = summary;
+        this.Assigned = assigned;
+        this.Status = status;
+        this.Priority = priority;
+        this.Submitter = submitter;
+        this.Watching = watching;
+        this.Software = software;
+        this.Cost = Convert.ToDouble(cost);
+        this.Reason = reason;
+        this.Estimate = TimeSpan.Parse(Estimate);
+    }
+
 }
